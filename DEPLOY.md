@@ -15,7 +15,7 @@ Free, no account needed beyond GitHub.
 1. Go to `vercel.com` → Sign up with GitHub.
 2. New Project → Import your `arun-portfolio` repo.
 3. Framework: Other (static).
-4. Deploy → site is live at: `https://arun-portfolio.vercel.app`.
+4. Deploy → site is live at: `https://arun-portfolio-green.vercel.app/`.
 5. Custom domain: Add `arunkhanchandani.dev` in Vercel settings. Then point domain DNS to Vercel at your domain registrar.
 
 ## Two Things To Update After Deployment
