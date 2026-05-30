@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Python Backend & AI Engineer specialising in FastAPI, RAG pipelines, and LLM systems.">
+  <meta property="og:title" content="Arun Khanchandani — AI Engineer">
+  <meta property="og:description" content="Python Backend & AI Engineer — FastAPI, RAG, LLM systems">
+  <meta property="og:url" content="https://arunkhanchandani.vercel.app">
+  <meta property="og:type" content="website">
   <title>Arun Khanchandani — AI Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230A0E1A'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-size='42' font-family='Arial,sans-serif' font-weight='700' fill='%233B82F6'%3EAK%3C/text%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #0A0E1A;
@@ -461,9 +465,15 @@
 
     .stat-number {
       color: var(--text);
-      font-size: clamp(2rem, 4vw, 2.65rem);
+      font-size: clamp(1.85rem, 3.2vw, 2.55rem);
       line-height: 1;
       font-weight: 600;
+      overflow-wrap: normal;
+      white-space: nowrap;
+    }
+
+    .coverage-stat {
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
     }
 
     .stat-label {
@@ -831,6 +841,10 @@
         min-height: 118px;
       }
 
+      .coverage-stat {
+        font-size: clamp(1.6rem, 9vw, 2.25rem);
+      }
+
       .hero-actions,
       .card-actions,
       .contact-actions {
@@ -936,19 +950,19 @@
           </div>
           <div class="stats-grid" id="statsGrid">
             <article class="stat-card">
-              <div class="stat-number"><span class="counter" data-target="4" data-decimals="0">0</span> Years</div>
+              <div class="stat-number"><span class="counter" data-target="4" data-decimals="0">4</span> Years</div>
               <p class="stat-label">Experience</p>
             </article>
             <article class="stat-card">
-              <div class="stat-number"><span class="counter" data-target="8" data-decimals="0">0</span> Projects</div>
+              <div class="stat-number"><span class="counter" data-target="8" data-decimals="0">8</span> Projects</div>
               <p class="stat-label">Delivered</p>
             </article>
             <article class="stat-card">
-              <div class="stat-number">40→<span class="counter" data-target="82.5" data-decimals="1">0</span>%</div>
+              <div class="stat-number coverage-stat">40→82.5%</div>
               <p class="stat-label">Test Coverage</p>
             </article>
             <article class="stat-card">
-              <div class="stat-number"><span class="counter" data-target="5" data-decimals="0">0</span> Certs</div>
+              <div class="stat-number"><span class="counter" data-target="5" data-decimals="0">5</span> Certs</div>
               <p class="stat-label">AI & ML</p>
             </article>
           </div>
@@ -1196,6 +1210,7 @@
     const sections = Array.from(document.querySelectorAll("main section[id]"));
     const revealItems = Array.from(document.querySelectorAll(".reveal"));
     const counters = Array.from(document.querySelectorAll(".counter"));
+    const statsGrid = document.getElementById("statsGrid");
     let countersStarted = false;
 
     function setHeaderState() {
@@ -1250,6 +1265,18 @@
 
     revealItems.forEach((item) => revealObserver.observe(item));
 
+    function startCounters() {
+      if (countersStarted) {
+        return;
+      }
+
+      countersStarted = true;
+      counters.forEach((counter) => {
+        counter.textContent = Number(counter.dataset.decimals || 0) > 0 ? "0.0" : "0";
+        animateCounter(counter);
+      });
+    }
+
     function animateCounter(counter) {
       const target = Number(counter.dataset.target);
       const decimals = Number(counter.dataset.decimals || 0);
@@ -1272,17 +1299,36 @@
       requestAnimationFrame(tick);
     }
 
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !countersStarted) {
-          countersStarted = true;
-          counters.forEach(animateCounter);
-          statsObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.45 });
+    function statsAreVisible() {
+      const rect = statsGrid.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+    }
 
-    statsObserver.observe(document.getElementById("about"));
+    if ("IntersectionObserver" in window) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startCounters();
+            statsObserver.disconnect();
+          }
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.15 });
+
+      statsObserver.observe(statsGrid);
+    }
+
+    function counterFallbackCheck() {
+      if (!countersStarted && statsAreVisible()) {
+        startCounters();
+        window.removeEventListener("scroll", counterFallbackCheck);
+        window.removeEventListener("resize", counterFallbackCheck);
+      }
+    }
+
+    window.addEventListener("load", counterFallbackCheck);
+    window.addEventListener("scroll", counterFallbackCheck, { passive: true });
+    window.addEventListener("resize", counterFallbackCheck);
+    counterFallbackCheck();
 
     const activeObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
