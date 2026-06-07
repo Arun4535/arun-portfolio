@@ -931,7 +931,7 @@
         <p class="hero-copy">Building AI-powered backend systems with FastAPI, RAG pipelines, and LLM APIs. 4 years of engineering experience.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn secondary" href="https://drive.google.com/file/d/1cAzCtyeyofVe68A1oH2oPBHAFfJ3bj_2/view">Download Resume</a>
+          <a class="btn secondary" href="https://drive.google.com/file/d/1XtyusdurGrE_z7XNK5B1-jvAoLSYarXc/view" target="_blank" rel="noopener noreferrer">Download Resume</a>
         </div>
       </div>
       <a class="scroll-cue" href="#about" aria-label="Scroll to about section"></a>
@@ -979,6 +979,31 @@
         <div class="projects-list">
           <article class="project-card">
             <div class="project-top">
+              <h3 class="project-title">DebateArena</h3>
+              <span class="badge">Live · 2026</span>
+            </div>
+            <div class="tags" aria-label="Technologies">
+              <span class="tag">Python</span>
+              <span class="tag">Gradio</span>
+              <span class="tag">Llama 3.1</span>
+              <span class="tag">HF Inference Router</span>
+              <span class="tag">Multi-Agent</span>
+              <span class="tag">OpenAI-compatible API</span>
+            </div>
+            <p class="project-description">Live multi-agent debate system where two independent Llama-3.1-8B agents argue FOR and AGAINST any topic across structured rounds, with a third Judge agent evaluating the full transcript and delivering a structured verdict.</p>
+            <ul class="highlights">
+              <li><span class="check">✓</span><span>Two-layer content guardrails — regex blocklist + LLM-based SAFE/UNSAFE classifier with fail-open design</span></li>
+              <li><span class="check">✓</span><span>Real-time response streaming via <code style="font-size:0.85em;opacity:0.8">router.huggingface.co/v1</code> using OpenAI-compatible client</span></li>
+              <li><span class="check">✓</span><span>Deployed on Hugging Face Spaces — zero-cost, always-on with UptimeRobot monitoring</span></li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn primary" href="https://huggingface.co/spaces/Arun4535/model_debate" target="_blank" rel="noopener noreferrer">Live Demo →</a>
+              <a class="btn secondary" href="https://github.com/Arun4535" target="_blank" rel="noopener noreferrer">GitHub →</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
               <h3 class="project-title">DocSense + ResearchAgent</h3>
               <span class="badge">Flagship Project</span>
             </div>
@@ -998,7 +1023,6 @@
             </ul>
             <div class="card-actions">
               <a class="btn primary" href="https://github.com/Arun4535/research-agent" target="_blank" rel="noopener noreferrer">GitHub →</a>
-              <a class="btn secondary" href="#">Live Demo →</a>
             </div>
           </article>
 
